@@ -63,13 +63,11 @@ router.post(`/trips/:id/passengers`, Validation,(req,res)=>
 
 router.post('/trips', Validation,  (req,res)=>
 {
-    //console.log(req.url, req.method)
     let data = req.body;
     console.log(data);
     if (data)
     {
         trips.push(data);
-        //trips.push(passengers)
     }
     res.send(trips);    
 })
