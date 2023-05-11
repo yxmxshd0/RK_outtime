@@ -42,6 +42,8 @@ let trips = [
 router.get('/trips/:id', (req,res)=>
 {
     let id = req.params.id;
+
+	let currTrip
 	for (let x = 0; x<trips.length;x++)
 	{
 		if(trips[x][0].id===id)
@@ -49,6 +51,12 @@ router.get('/trips/:id', (req,res)=>
 			currTrip = trips[x]
 		}
 		
+	}
+
+
+	if (currTrip==null)
+	{
+		res.send(400, `Отсутствует данное путешествие`)
 	}
     res.send(currTrip);
 
@@ -105,11 +113,17 @@ router.post(`/trips/:id/passengers`, Validation,(req,res)=>
 router.post('/trips', Validation,  (req,res)=>
 {
     let data = req.body;
-    //console.log(data);
-    if (data)
-    {
-        trips.push(data);
+	if (data)
+	{
+		let dataPush = [{},[]];
+		dataPush[0]=data;
+		//console.log(data);
+		trips.push(dataPush);
     }
+	else
+	{
+		res.send(400, `Пустое сообщение`)
+	}
     res.send(trips);    
 })
 
